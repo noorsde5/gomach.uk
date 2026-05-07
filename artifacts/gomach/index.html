@@ -3,6 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+    <!-- GitHub Pages SPA routing redirect handler -->
+    <script>
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
 
     <!-- ===================== PRIMARY META ===================== -->
     <title>GoMach | Cross-Border Freight Logistics &amp; Tyre Solutions | UK &amp; Europe</title>

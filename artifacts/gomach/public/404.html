@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>GoMach</title>
+  <script>
+    // GitHub Pages SPA fallback — stores the full path and redirects to index
+    sessionStorage.redirect = location.href;
+    window.location.replace(
+      location.protocol + '//' + location.host + location.pathname.split('/').slice(0, 2).join('/')
+    );
+  </script>
+</head>
+<body></body>
+</html>
