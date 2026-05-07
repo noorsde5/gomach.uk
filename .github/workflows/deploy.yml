@@ -56,6 +56,9 @@ jobs:
           # Once gomach.uk DNS is pointed at GitHub Pages, change this to: /
           BASE_PATH: /gomach.uk/
           NODE_ENV: production
+          # Get your free key at https://web3forms.com — enter info@gomach.uk
+          # Then add it in GitHub: Settings > Secrets > Actions > VITE_WEB3FORMS_KEY
+          VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
         run: pnpm run build
 
       - name: Upload Pages artifact

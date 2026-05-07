@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -60,6 +60,11 @@ export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Contact form state
+  const [formState, setFormState] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [formError, setFormError] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -73,6 +78,55 @@ export default function Home() {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormState("loading");
+    setFormError("");
+    const formData = new FormData(e.currentTarget);
+    // Web3Forms access key — get yours free at https://web3forms.com (enter info@gomach.uk)
+    // Then add it as a GitHub secret: VITE_WEB3FORMS_KEY
+    const accessKey = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
+    if (!accessKey) {
+      // Fallback: open mailto when no key is configured
+      const name = formData.get("name") as string;
+      const email = formData.get("email") as string;
+      const subject = formData.get("subject") as string;
+      const message = formData.get("message") as string;
+      window.open(
+        `mailto:info@gomach.uk?subject=${encodeURIComponent(subject || "GoMach Enquiry")}&body=${encodeURIComponent(`From: ${name} <${email}>\n\n${message}`)}`,
+        "_blank"
+      );
+      setFormState("success");
+      formRef.current?.reset();
+      return;
+    }
+    try {
+      const payload = {
+        access_key: accessKey,
+        subject: formData.get("subject") || "New GoMach Website Enquiry",
+        from_name: formData.get("name"),
+        email: formData.get("email"),
+        message: formData.get("message"),
+        botcheck: "",
+      };
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setFormState("success");
+        formRef.current?.reset();
+      } else {
+        throw new Error(data.message || "Submission failed");
+      }
+    } catch (err) {
+      setFormState("error");
+      setFormError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     }
   };
 
@@ -922,58 +976,94 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              <motion.form
-                variants={fadeUp}
-                className="space-y-4"
-                onSubmit={(e) => e.preventDefault()}
-                aria-label="Contact GoMach enquiry form"
-                noValidate
-              >
-                <div className="grid grid-cols-2 gap-4">
-                  <Input
-                    placeholder="First Name"
-                    className="bg-background border-border h-12"
-                    data-testid="input-first-name"
-                    aria-label="First name"
-                    autoComplete="given-name"
-                  />
-                  <Input
-                    placeholder="Last Name"
-                    className="bg-background border-border h-12"
-                    data-testid="input-last-name"
-                    aria-label="Last name"
-                    autoComplete="family-name"
-                  />
-                </div>
-                <Input
-                  placeholder="Email Address"
-                  type="email"
-                  className="bg-background border-border h-12"
-                  data-testid="input-email"
-                  aria-label="Email address"
-                  autoComplete="email"
-                />
-                <Input
-                  placeholder="Subject"
-                  className="bg-background border-border h-12"
-                  data-testid="input-subject"
-                  aria-label="Message subject"
-                />
-                <Textarea
-                  placeholder="Your Message"
-                  className="bg-background border-border min-h-[120px] resize-none"
-                  data-testid="input-message"
-                  aria-label="Your message to GoMach"
-                />
-                <Button
-                  className="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 rounded-none"
-                  data-testid="button-send-message"
-                  type="submit"
-                  aria-label="Send message to GoMach"
+              {formState === "success" ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-primary/10 border border-primary/30 rounded-2xl p-8 text-center"
                 >
-                  Send Message
-                </Button>
-              </motion.form>
+                  <div className="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Mail className="w-7 h-7 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-black mb-2">Message Sent!</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Thanks for reaching out. We'll get back to you at <strong>info@gomach.uk</strong> within 24 hours.
+                  </p>
+                  <button
+                    onClick={() => setFormState("idle")}
+                    className="text-sm text-primary hover:underline"
+                  >
+                    Send another message
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.form
+                  ref={formRef}
+                  variants={fadeUp}
+                  className="space-y-4"
+                  onSubmit={handleContactSubmit}
+                  aria-label="Contact GoMach enquiry form"
+                  noValidate
+                >
+                  <Input
+                    name="name"
+                    placeholder="Your Full Name"
+                    required
+                    className="bg-background border-border h-12"
+                    data-testid="input-name"
+                    aria-label="Full name"
+                    autoComplete="name"
+                  />
+                  <Input
+                    name="email"
+                    placeholder="Email Address"
+                    type="email"
+                    required
+                    className="bg-background border-border h-12"
+                    data-testid="input-email"
+                    aria-label="Email address"
+                    autoComplete="email"
+                  />
+                  <Input
+                    name="subject"
+                    placeholder="Subject (e.g. Freight Quote, Tyre Enquiry)"
+                    className="bg-background border-border h-12"
+                    data-testid="input-subject"
+                    aria-label="Message subject"
+                  />
+                  <Textarea
+                    name="message"
+                    placeholder="Your Message — tell us about your freight needs, tyre size, or anything else"
+                    required
+                    className="bg-background border-border min-h-[140px] resize-none"
+                    data-testid="input-message"
+                    aria-label="Your message to GoMach"
+                  />
+                  {formState === "error" && (
+                    <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3">
+                      {formError || "Something went wrong. Please try again or contact us directly."}
+                    </p>
+                  )}
+                  <Button
+                    className="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 rounded-none disabled:opacity-60"
+                    data-testid="button-send-message"
+                    type="submit"
+                    disabled={formState === "loading"}
+                    aria-label="Send message to GoMach"
+                  >
+                    {formState === "loading" ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Sending…
+                      </span>
+                    ) : "Send Message →"}
+                  </Button>
+                  <p className="text-xs text-muted-foreground text-center">
+                    Or reach us directly at{" "}
+                    <a href="mailto:info@gomach.uk" className="text-primary hover:underline">info@gomach.uk</a>
+                  </p>
+                </motion.form>
+              )}
             </motion.div>
 
             <motion.div

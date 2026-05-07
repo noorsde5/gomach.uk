@@ -1,7 +1,16 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
-import { ChevronLeft, MessageSquare, Star, ShieldCheck, Fuel, Snowflake, Sun, Cloud, Filter } from "lucide-react";
+import {
+  ChevronLeft, MessageSquare, Star, ShieldCheck, Fuel,
+  Snowflake, Sun, Cloud, Filter, Search, X, CircleAlert
+} from "lucide-react";
+
+interface TyreSize {
+  width: number;
+  profile: number;
+  rim: number;
+}
 
 interface Tyre {
   id: number;
@@ -17,6 +26,7 @@ interface Tyre {
   rating: number;
   vehicle: string;
   specs: { label: string; value: string }[];
+  sizes: TyreSize[];
 }
 
 const tyres: Tyre[] = [
@@ -40,6 +50,14 @@ const tyres: Tyre[] = [
       { label: "Wet Grip", value: "B" },
       { label: "Noise", value: "68 dB" },
     ],
+    sizes: [
+      { width: 185, profile: 65, rim: 15 },
+      { width: 195, profile: 65, rim: 15 },
+      { width: 205, profile: 55, rim: 16 },
+      { width: 215, profile: 55, rim: 17 },
+      { width: 225, profile: 45, rim: 17 },
+      { width: 205, profile: 60, rim: 16 },
+    ],
   },
   {
     id: 2,
@@ -60,6 +78,15 @@ const tyres: Tyre[] = [
       { label: "Fuel Efficiency", value: "B" },
       { label: "Wet Grip", value: "A" },
       { label: "Noise", value: "71 dB" },
+    ],
+    sizes: [
+      { width: 225, profile: 45, rim: 17 },
+      { width: 235, profile: 45, rim: 18 },
+      { width: 245, profile: 40, rim: 18 },
+      { width: 255, profile: 35, rim: 19 },
+      { width: 265, profile: 35, rim: 19 },
+      { width: 275, profile: 30, rim: 20 },
+      { width: 225, profile: 40, rim: 18 },
     ],
   },
   {
@@ -82,6 +109,14 @@ const tyres: Tyre[] = [
       { label: "Wet Grip", value: "B" },
       { label: "Noise", value: "70 dB" },
     ],
+    sizes: [
+      { width: 225, profile: 55, rim: 17 },
+      { width: 235, profile: 60, rim: 18 },
+      { width: 255, profile: 50, rim: 19 },
+      { width: 265, profile: 45, rim: 20 },
+      { width: 235, profile: 55, rim: 17 },
+      { width: 215, profile: 65, rim: 16 },
+    ],
   },
   {
     id: 4,
@@ -102,6 +137,14 @@ const tyres: Tyre[] = [
       { label: "Fuel Efficiency", value: "C" },
       { label: "Wet Grip", value: "A" },
       { label: "Noise", value: "69 dB" },
+    ],
+    sizes: [
+      { width: 195, profile: 65, rim: 15 },
+      { width: 205, profile: 55, rim: 16 },
+      { width: 215, profile: 60, rim: 16 },
+      { width: 225, profile: 45, rim: 17 },
+      { width: 235, profile: 45, rim: 17 },
+      { width: 205, profile: 60, rim: 16 },
     ],
   },
   {
@@ -124,6 +167,14 @@ const tyres: Tyre[] = [
       { label: "Wet Grip", value: "A" },
       { label: "Noise", value: "67 dB" },
     ],
+    sizes: [
+      { width: 195, profile: 65, rim: 15 },
+      { width: 205, profile: 55, rim: 16 },
+      { width: 215, profile: 55, rim: 17 },
+      { width: 225, profile: 50, rim: 17 },
+      { width: 235, profile: 45, rim: 18 },
+      { width: 195, profile: 60, rim: 15 },
+    ],
   },
   {
     id: 6,
@@ -144,6 +195,14 @@ const tyres: Tyre[] = [
       { label: "Fuel Efficiency", value: "B" },
       { label: "Wet Grip", value: "A" },
       { label: "Noise", value: "70 dB" },
+    ],
+    sizes: [
+      { width: 185, profile: 60, rim: 14 },
+      { width: 185, profile: 65, rim: 15 },
+      { width: 195, profile: 65, rim: 15 },
+      { width: 205, profile: 55, rim: 16 },
+      { width: 215, profile: 55, rim: 17 },
+      { width: 195, profile: 55, rim: 16 },
     ],
   },
   {
@@ -166,6 +225,14 @@ const tyres: Tyre[] = [
       { label: "Wet Grip", value: "B" },
       { label: "Noise", value: "73 dB" },
     ],
+    sizes: [
+      { width: 195, profile: 65, rim: 15 },
+      { width: 205, profile: 55, rim: 16 },
+      { width: 215, profile: 55, rim: 17 },
+      { width: 225, profile: 45, rim: 17 },
+      { width: 235, profile: 55, rim: 17 },
+      { width: 245, profile: 45, rim: 18 },
+    ],
   },
   {
     id: 8,
@@ -186,6 +253,14 @@ const tyres: Tyre[] = [
       { label: "Fuel Efficiency", value: "A" },
       { label: "Wet Grip", value: "B" },
       { label: "Noise", value: "66 dB" },
+    ],
+    sizes: [
+      { width: 175, profile: 65, rim: 14 },
+      { width: 185, profile: 65, rim: 15 },
+      { width: 195, profile: 65, rim: 15 },
+      { width: 205, profile: 55, rim: 16 },
+      { width: 185, profile: 60, rim: 14 },
+      { width: 195, profile: 55, rim: 15 },
     ],
   },
 ];
@@ -211,6 +286,10 @@ const staggerContainer = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.08 } },
 };
+
+function formatSize(s: TyreSize) {
+  return `${s.width}/${s.profile} R${s.rim}`;
+}
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -271,9 +350,19 @@ function TyreCard({ tyre, onClick }: { tyre: Tyre; onClick: () => void }) {
           {tyre.model}
         </h3>
         <StarRating rating={tyre.rating} />
-        <p className="text-sm text-muted-foreground mt-3 mb-4 leading-relaxed flex-1" itemProp="description">
+        <p className="text-sm text-muted-foreground mt-3 mb-3 leading-relaxed flex-1" itemProp="description">
           {tyre.shortDesc}
         </p>
+        <div className="flex flex-wrap gap-1 mb-3">
+          {tyre.sizes.slice(0, 3).map((s) => (
+            <span key={formatSize(s)} className="text-xs bg-muted/60 text-muted-foreground px-2 py-0.5 rounded font-mono border border-border/60">
+              {formatSize(s)}
+            </span>
+          ))}
+          {tyre.sizes.length > 3 && (
+            <span className="text-xs text-primary px-1 py-0.5">+{tyre.sizes.length - 3} more</span>
+          )}
+        </div>
         <div className="flex flex-wrap gap-1.5 mb-4">
           {tyre.tags.map((tag) => (
             <span key={tag} className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-full border border-border">
@@ -311,7 +400,7 @@ function TyreModal({ tyre, onClose }: { tyre: Tyre; onClose: () => void }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -322,7 +411,7 @@ function TyreModal({ tyre, onClose }: { tyre: Tyre; onClose: () => void }) {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ duration: 0.3 }}
-        className="bg-card border border-border rounded-2xl max-w-2xl w-full overflow-hidden"
+        className="bg-card border border-border rounded-2xl max-w-2xl w-full overflow-hidden my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="grid md:grid-cols-2">
@@ -360,7 +449,7 @@ function TyreModal({ tyre, onClose }: { tyre: Tyre; onClose: () => void }) {
             <StarRating rating={tyre.rating} />
             <p className="text-sm text-muted-foreground mt-4 mb-4 leading-relaxed">{tyre.longDesc}</p>
 
-            <div className="grid grid-cols-2 gap-2 mb-5">
+            <div className="grid grid-cols-2 gap-2 mb-4">
               {tyre.specs.map((s) => (
                 <div key={s.label} className="bg-background rounded-lg p-2.5 border border-border">
                   <p className="text-xs text-muted-foreground">{s.label}</p>
@@ -369,7 +458,18 @@ function TyreModal({ tyre, onClose }: { tyre: Tyre; onClose: () => void }) {
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-1.5 mb-5">
+            <div className="mb-4">
+              <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold mb-2">Available Sizes</p>
+              <div className="flex flex-wrap gap-1.5">
+                {tyre.sizes.map((s) => (
+                  <span key={formatSize(s)} className="text-xs font-mono bg-muted px-2 py-1 rounded border border-border text-foreground">
+                    {formatSize(s)}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-1.5 mb-4">
               {tyre.tags.map((tag) => (
                 <span key={tag} className="text-xs bg-muted px-2 py-0.5 rounded-full border border-border text-muted-foreground">
                   {tag}
@@ -403,19 +503,83 @@ export default function Catalogue() {
   const [selected, setSelected] = useState<Tyre | null>(null);
   const [sort, setSort] = useState<"default" | "price-asc" | "price-desc" | "rating">("default");
 
-  const filtered = tyres
-    .filter((t) => filter === "all" || t.category === filter)
-    .sort((a, b) => {
-      if (sort === "price-asc") return a.price - b.price;
-      if (sort === "price-desc") return b.price - a.price;
-      if (sort === "rating") return b.rating - a.rating;
-      return a.id - b.id;
-    });
+  // Tyre size finder state
+  const [sizeWidth, setSizeWidth] = useState<string>("");
+  const [sizeProfile, setSizeProfile] = useState<string>("");
+  const [sizeRim, setSizeRim] = useState<string>("");
+  const [sizeTouched, setSizeTouched] = useState(false);
+
+  // Derive unique values for each dropdown from all tyres
+  const allWidths = useMemo(() =>
+    [...new Set(tyres.flatMap(t => t.sizes.map(s => s.width)))].sort((a, b) => a - b),
+    []
+  );
+
+  const allProfiles = useMemo(() => {
+    const base = tyres.flatMap(t => t.sizes.map(s => s.profile));
+    if (sizeWidth) {
+      const w = Number(sizeWidth);
+      const filtered = tyres.flatMap(t => t.sizes.filter(s => s.width === w).map(s => s.profile));
+      return [...new Set(filtered)].sort((a, b) => a - b);
+    }
+    return [...new Set(base)].sort((a, b) => a - b);
+  }, [sizeWidth]);
+
+  const allRims = useMemo(() => {
+    const base = tyres.flatMap(t => t.sizes.map(s => s.rim));
+    if (sizeWidth && sizeProfile) {
+      const w = Number(sizeWidth);
+      const p = Number(sizeProfile);
+      const filtered = tyres.flatMap(t =>
+        t.sizes.filter(s => s.width === w && s.profile === p).map(s => s.rim)
+      );
+      return [...new Set(filtered)].sort((a, b) => a - b);
+    }
+    if (sizeWidth) {
+      const w = Number(sizeWidth);
+      const filtered = tyres.flatMap(t => t.sizes.filter(s => s.width === w).map(s => s.rim));
+      return [...new Set(filtered)].sort((a, b) => a - b);
+    }
+    return [...new Set(base)].sort((a, b) => a - b);
+  }, [sizeWidth, sizeProfile]);
+
+  const sizeFilterActive = !!(sizeWidth || sizeProfile || sizeRim);
+
+  const clearSize = () => {
+    setSizeWidth("");
+    setSizeProfile("");
+    setSizeRim("");
+    setSizeTouched(false);
+  };
+
+  const filtered = useMemo(() => {
+    return tyres
+      .filter((t) => {
+        if (filter !== "all" && t.category !== filter) return false;
+        if (sizeWidth || sizeProfile || sizeRim) {
+          return t.sizes.some(s =>
+            (!sizeWidth || s.width === Number(sizeWidth)) &&
+            (!sizeProfile || s.profile === Number(sizeProfile)) &&
+            (!sizeRim || s.rim === Number(sizeRim))
+          );
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        if (sort === "price-asc") return a.price - b.price;
+        if (sort === "price-desc") return b.price - a.price;
+        if (sort === "rating") return b.rating - a.rating;
+        return a.id - b.id;
+      });
+  }, [filter, sort, sizeWidth, sizeProfile, sizeRim]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-background/90 backdrop-blur-md border-b border-border py-4" aria-label="Catalogue navigation">
+      <nav
+        className="fixed top-0 left-0 right-0 z-40 bg-background/90 backdrop-blur-md border-b border-border py-4"
+        aria-label="Catalogue navigation"
+      >
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           <Link
             href="/"
@@ -447,13 +611,153 @@ export default function Catalogue() {
               <span className="text-primary">Every Season.</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="text-muted-foreground text-lg max-w-2xl">
-              Sourced from Europe's leading manufacturers and delivered across the UK, Ireland, Germany, and Finland. Click any tyre to view full details and enquire via WhatsApp.
+              Sourced from Europe's leading manufacturers and delivered across the UK, Ireland, Germany, and Finland. Use the size finder below, then click any tyre to enquire via WhatsApp.
             </motion.p>
           </motion.div>
         </div>
       </div>
 
-      {/* Filters */}
+      {/* ====== SIZE FINDER ====== */}
+      <div className="bg-background border-b border-border py-6">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Search className="w-4 h-4 text-primary" />
+            <span className="font-bold text-sm uppercase tracking-widest">Tyre Size Finder</span>
+            <span className="text-xs text-muted-foreground ml-1">— Enter your tyre size to filter compatible products</span>
+          </div>
+
+          {/* Size diagram hint */}
+          <div className="bg-card border border-border rounded-xl p-4 mb-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="shrink-0 text-center">
+              <p className="font-mono text-lg font-black text-foreground">
+                <span className="text-primary">205</span>
+                <span className="text-muted-foreground">/</span>
+                <span className="text-foreground">55</span>
+                <span className="text-muted-foreground"> R</span>
+                <span className="text-foreground">16</span>
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">Example size format</p>
+            </div>
+            <div className="flex gap-4 text-xs text-muted-foreground flex-wrap">
+              <span><strong className="text-primary">205</strong> = Width (mm)</span>
+              <span><strong className="text-foreground">55</strong> = Aspect Ratio (%)</span>
+              <span><strong className="text-foreground">R16</strong> = Rim Diameter (inches)</span>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-end gap-3">
+            {/* Width */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Width (mm)</label>
+              <select
+                value={sizeWidth}
+                onChange={(e) => {
+                  setSizeWidth(e.target.value);
+                  setSizeProfile("");
+                  setSizeRim("");
+                  setSizeTouched(true);
+                }}
+                className="bg-card border border-border rounded-lg px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary min-w-[110px]"
+                aria-label="Select tyre width"
+              >
+                <option value="">Any width</option>
+                {allWidths.map(w => (
+                  <option key={w} value={w}>{w}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="text-muted-foreground font-bold text-lg pb-2">/</div>
+
+            {/* Profile */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Aspect Ratio</label>
+              <select
+                value={sizeProfile}
+                onChange={(e) => {
+                  setSizeProfile(e.target.value);
+                  setSizeRim("");
+                  setSizeTouched(true);
+                }}
+                className="bg-card border border-border rounded-lg px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary min-w-[110px]"
+                aria-label="Select tyre aspect ratio"
+              >
+                <option value="">Any ratio</option>
+                {allProfiles.map(p => (
+                  <option key={p} value={p}>{p}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="text-muted-foreground font-bold text-sm pb-2">R</div>
+
+            {/* Rim */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Rim (inches)</label>
+              <select
+                value={sizeRim}
+                onChange={(e) => {
+                  setSizeRim(e.target.value);
+                  setSizeTouched(true);
+                }}
+                className="bg-card border border-border rounded-lg px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary min-w-[110px]"
+                aria-label="Select tyre rim size"
+              >
+                <option value="">Any rim</option>
+                {allRims.map(r => (
+                  <option key={r} value={r}>{r}"</option>
+                ))}
+              </select>
+            </div>
+
+            {sizeFilterActive && (
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs opacity-0">Clear</label>
+                <button
+                  onClick={clearSize}
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg border border-border text-sm text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all"
+                  aria-label="Clear size filter"
+                >
+                  <X className="w-4 h-4" />
+                  Clear
+                </button>
+              </div>
+            )}
+
+            {sizeFilterActive && (
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs opacity-0">Result</label>
+                <div className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold ${
+                  filtered.length > 0
+                    ? "bg-primary/10 text-primary border border-primary/30"
+                    : "bg-red-500/10 text-red-400 border border-red-500/30"
+                }`}>
+                  {filtered.length > 0
+                    ? `${filtered.length} match${filtered.length !== 1 ? "es" : ""} found`
+                    : "No matches"}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {sizeTouched && filtered.length === 0 && (
+            <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground bg-card border border-border rounded-lg p-3">
+              <CircleAlert className="w-4 h-4 text-primary shrink-0" />
+              We don't have an exact match listed, but we source from across Europe.
+              <a
+                href={`https://wa.me/447350329728?text=Hi%20GoMach%2C%20I%27m%20looking%20for%20a%20${sizeWidth || ""}%2F${sizeProfile || ""}%20R${sizeRim || ""}%20tyre.%20Can%20you%20help%3F`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#25D366] font-semibold hover:underline ml-1 whitespace-nowrap"
+              >
+                Ask us on WhatsApp →
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Category filters + sort */}
       <div className="sticky top-16 z-30 bg-background/95 backdrop-blur border-b border-border py-4">
         <div className="container mx-auto px-4 md:px-6 flex flex-wrap items-center gap-3 justify-between">
           <div className="flex items-center gap-2 flex-wrap">
@@ -488,12 +792,14 @@ export default function Catalogue() {
         </div>
       </div>
 
-      {/* Grid */}
+      {/* Product Grid */}
       <main className="container mx-auto px-4 md:px-6 py-12">
         <p className="text-sm text-muted-foreground mb-6">
           Showing <strong className="text-foreground">{filtered.length}</strong> tyre{filtered.length !== 1 ? "s" : ""}
           {filter !== "all" ? ` — ${categoryLabels[filter]}` : ""}
+          {sizeFilterActive && sizeWidth ? ` matching ${sizeWidth}${sizeProfile ? `/${sizeProfile}` : ""}${sizeRim ? ` R${sizeRim}` : ""}` : ""}
         </p>
+
         <motion.div
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
@@ -508,7 +814,7 @@ export default function Catalogue() {
           </AnimatePresence>
         </motion.div>
 
-        {filtered.length === 0 && (
+        {filtered.length === 0 && !sizeTouched && (
           <div className="text-center py-24 text-muted-foreground">
             <p className="text-lg">No tyres found for this filter.</p>
           </div>
