@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "xGFTG7UNAhSD9TavgBjG9"
+uri = "file://artifacts/gomach/public/hero-bg.png"
+type = "image"
+title = "Hero background European highways"
+
+[[generated]]
+id = "A4vxOmcfon9Q74xDCpvjU"
+uri = "file://artifacts/gomach/public/services-bg.png"
+type = "image"
+title = "Services background logistics"
