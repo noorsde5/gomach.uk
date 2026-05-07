@@ -338,12 +338,13 @@ export default function Home() {
             >
               <div className="aspect-square bg-muted rounded-2xl overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700">
                 <img
-                  src="https://images.unsplash.com/photo-1586528116311-ad8ed745140c?q=80&w=2070&auto=format&fit=crop"
-                  alt="GoMach logistics warehouse interior — pallets and freight being organised for cross-border shipping across UK and Europe"
+                  src="/warehouse.png"
+                  alt="GoMach logistics warehouse interior — rows of stacked pallets and freight boxes organised for cross-border shipping across UK and Europe"
                   className="object-cover w-full h-full"
                   loading="lazy"
                   width="800"
-                  height="800"
+                  height="600"
+                  itemProp="image"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
               </div>
@@ -523,6 +524,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Port / Operations Visual Banner */}
+      <div className="relative h-64 overflow-hidden" aria-hidden="true">
+        <img
+          src="/port.png"
+          alt="Aerial view of European cargo port with shipping containers — GoMach cross-border freight operations across UK and Europe"
+          className="w-full h-full object-cover opacity-40"
+          loading="lazy"
+          width="1920"
+          height="400"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-background/20" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="container mx-auto px-4 md:px-6">
+            <p className="text-3xl md:text-5xl font-black tracking-tight">
+              <span className="text-primary">4 strategic hubs.</span>{" "}
+              <span className="text-foreground">1 seamless network.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Locations Section */}
       <section id="locations" aria-label="GoMach locations across Europe — Nottingham, Cork, Frankfurt, Helsinki" className="py-24 bg-card">
         <div className="container mx-auto px-4 md:px-6">
@@ -609,12 +631,13 @@ export default function Home() {
             >
               <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-card border border-border">
                 <img
-                  src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=2064&auto=format&fit=crop"
-                  alt="Premium car and truck tyres from GoMach — wide range of sizes for commercial fleets and personal vehicles across UK and Europe"
+                  src="/truck.png"
+                  alt="GoMach freight truck on European highway — reliable cross-border transport connecting UK, Ireland, Germany and Finland"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                   loading="lazy"
                   width="800"
                   height="600"
+                  itemProp="image"
                 />
               </div>
             </motion.div>
@@ -651,6 +674,51 @@ export default function Home() {
                   View Tyre Catalog
                 </Button>
               </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section id="team" aria-label="GoMach expert logistics team" className="py-24 bg-background">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+            >
+              <motion.div variants={fadeUp} className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center gap-2">
+                <div className="w-8 h-1 bg-primary"></div>
+                Our People
+              </motion.div>
+              <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-black mb-6">
+                Experts Dedicated to Your Success
+              </motion.h2>
+              <motion.p variants={fadeUp} className="text-muted-foreground text-lg mb-6 leading-relaxed">
+                Our experienced team at GoMach brings together logistics professionals, tyre specialists, and customer service experts — all committed to delivering seamless solutions tailored to your business needs.
+              </motion.p>
+              <motion.p variants={fadeUp} className="text-muted-foreground text-lg leading-relaxed">
+                Together, we ensure every shipment and vehicle is handled with the utmost care and efficiency — backed by over 22 years of combined industry expertise across the UK and Europe.
+              </motion.p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="rounded-2xl overflow-hidden border border-border"
+            >
+              <img
+                src="/team.png"
+                alt="GoMach logistics team — experienced freight and tyre specialists dedicated to cross-border shipping excellence across UK and Europe"
+                className="w-full h-full object-cover"
+                loading="lazy"
+                width="800"
+                height="600"
+                itemProp="image"
+              />
             </motion.div>
           </div>
         </div>

@@ -15,23 +15,57 @@
     <lastmod>2025-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+
     <image:image>
       <image:loc>https://gomach.uk/opengraph.jpg</image:loc>
       <image:title>GoMach — Delivering logistics excellence across Europe &amp; the UK</image:title>
-      <image:caption>Aerial view of European highways at night — GoMach cross-border freight and tyre solutions</image:caption>
+      <image:caption>GoMach — trusted freight logistics and tyre solutions across the UK, Ireland, Germany and Finland</image:caption>
       <image:geo_location>Nottingham, United Kingdom</image:geo_location>
-      <image:license>https://gomach.uk/</image:license>
     </image:image>
+
     <image:image>
       <image:loc>https://gomach.uk/hero-bg.png</image:loc>
-      <image:title>GoMach Hero — Cross-border freight logistics highways</image:title>
-      <image:caption>Cinematic highway shot representing GoMach's pan-European logistics network</image:caption>
+      <image:title>European highway at night — GoMach cross-border freight logistics</image:title>
+      <image:caption>Aerial view of European motorways with freight trucks at night representing GoMach's pan-European logistics network</image:caption>
     </image:image>
+
+    <image:image>
+      <image:loc>https://gomach.uk/warehouse.png</image:loc>
+      <image:title>GoMach logistics warehouse — freight and pallet storage UK</image:title>
+      <image:caption>Interior of GoMach logistics warehouse with stacked pallets and freight boxes organised for cross-border shipping</image:caption>
+      <image:geo_location>Nottingham, United Kingdom</image:geo_location>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://gomach.uk/truck.png</image:loc>
+      <image:title>GoMach freight truck on European highway</image:title>
+      <image:caption>GoMach freight truck transporting goods across the UK and Europe — reliable cross-border logistics</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://gomach.uk/port.png</image:loc>
+      <image:title>GoMach cargo port operations — European freight hub</image:title>
+      <image:caption>Aerial view of European cargo port with shipping containers representing GoMach's multi-location freight infrastructure</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://gomach.uk/team.png</image:loc>
+      <image:title>GoMach logistics team — freight and tyre specialists</image:title>
+      <image:caption>GoMach's expert logistics team reviewing shipments and delivering seamless cross-border solutions for UK and European clients</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://gomach.uk/tyre-detail.png</image:loc>
+      <image:title>Premium truck tyre tread — GoMach tyre solutions UK &amp; Europe</image:title>
+      <image:caption>Close-up of GoMach premium truck tyre tread — wide range of car and truck tyres for commercial fleets across UK and EU</image:caption>
+    </image:image>
+
     <image:image>
       <image:loc>https://gomach.uk/services-bg.png</image:loc>
-      <image:title>GoMach Services — Freight, Tyres, Warehousing &amp; More</image:title>
-      <image:caption>GoMach services background — freight logistics, tyre solutions, warehousing</image:caption>
+      <image:title>GoMach services — freight forwarding, tyre sales, warehousing</image:title>
+      <image:caption>GoMach comprehensive logistics services background image</image:caption>
     </image:image>
+
   </url>
 
 </urlset>
