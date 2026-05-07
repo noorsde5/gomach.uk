@@ -115,6 +115,14 @@ export default function Home() {
                   </button>
                 )
               )}
+              <a
+                href="/catalogue"
+                className="text-sm font-medium text-primary border border-primary/40 hover:bg-primary/10 transition-colors px-4 py-1.5 rounded-full"
+                aria-label="View tyre catalogue"
+                data-testid="link-nav-catalogue"
+              >
+                Catalogue
+              </a>
               <Button
                 onClick={() => scrollTo("contact")}
                 aria-label="Get a quote from GoMach"
@@ -157,6 +165,13 @@ export default function Home() {
                   </button>
                 )
               )}
+              <a
+                href="/catalogue"
+                className="text-left text-lg font-medium text-primary"
+                data-testid="link-mobile-nav-catalogue"
+              >
+                Tyre Catalogue →
+              </a>
               <Button
                 onClick={() => scrollTo("contact")}
                 data-testid="button-get-quote-mobile"
@@ -669,10 +684,15 @@ export default function Home() {
                   </motion.div>
                 ))}
               </div>
-              <motion.div variants={fadeUp} className="mt-10">
-                <Button size="lg" className="bg-primary text-white font-bold h-14 px-8 rounded-none">
-                  View Tyre Catalog
-                </Button>
+              <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
+                <a
+                  href="/catalogue"
+                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold h-14 px-8 rounded-none text-base transition-colors"
+                  aria-label="View full tyre catalogue"
+                  data-testid="button-view-catalogue"
+                >
+                  View Tyre Catalogue →
+                </a>
               </motion.div>
             </motion.div>
           </div>

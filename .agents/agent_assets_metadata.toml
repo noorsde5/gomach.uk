@@ -48,3 +48,51 @@ id = "huoCEJZU_0UV2yWE7qMYK"
 uri = "file://artifacts/gomach/public/tyre-detail.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "-bJCGH_O8u_EQXqIO3Ql6"
+uri = "file://artifacts/gomach/public/tyre-continental-ecocontact6.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "eCLLpzffDfaPvrhFS5xoB"
+uri = "file://artifacts/gomach/public/tyre-michelin-pilotsp4.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "HP36jS5jYwET-CC8gd1vw"
+uri = "file://artifacts/gomach/public/tyre-pirelli-scorpion.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "DUvkp6cjGXY5FQooPA2Mh"
+uri = "file://artifacts/gomach/public/tyre-goodyear-ultragrip.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "yMM2Wf8mOyIyys_M2uPOg"
+uri = "file://artifacts/gomach/public/tyre-bridgestone-turanza.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "F1Kl4rYD5HfkztHKzVW0w"
+uri = "file://artifacts/gomach/public/tyre-dunlop-bluresponse.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Ou_IS4M7z_f-Smp4dvxcK"
+uri = "file://artifacts/gomach/public/tyre-nokian-hakka.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "FK3sefJU0eJgWlmwBT1_8"
+uri = "file://artifacts/gomach/public/tyre-yokohama-bluearth.png"
+type = "image"
+title = "generated_image"
