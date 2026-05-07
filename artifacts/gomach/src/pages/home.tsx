@@ -77,88 +77,117 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary selection:text-white">
-      {/* Navbar */}
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent ${
-          isScrolled
-            ? "bg-background/90 backdrop-blur-md border-border shadow-sm py-3"
-            : "bg-transparent py-5"
-        }`}
-      >
-        <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-          <div
-            className="flex items-center cursor-pointer"
-            onClick={() => scrollTo("hero")}
-          >
-            <span className="text-2xl font-black tracking-tighter">
-              Go<span className="text-primary">Mach</span>
-            </span>
-          </div>
-
-          <div className="hidden lg:flex items-center space-x-8">
-            {["About", "Services", "Process", "Locations", "Tyres", "FAQ", "Contact"].map(
-              (item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollTo(item.toLowerCase())}
-                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
-                >
-                  {item}
-                </button>
-              )
-            )}
-            <Button
-              onClick={() => scrollTo("contact")}
-              className="bg-primary hover:bg-primary/90 text-white font-bold rounded-full px-6"
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary selection:text-white" itemScope itemType="https://schema.org/WebPage">
+      {/* ========== HEADER / NAVBAR ========== */}
+      <header>
+        <nav
+          aria-label="Main navigation"
+          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent ${
+            isScrolled
+              ? "bg-background/90 backdrop-blur-md border-border shadow-sm py-3"
+              : "bg-transparent py-5"
+          }`}
+        >
+          <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
+            <button
+              className="flex items-center cursor-pointer"
+              onClick={() => scrollTo("hero")}
+              aria-label="GoMach — Go to top of page"
+              data-testid="link-logo"
             >
-              Get a Quote
-            </Button>
-          </div>
+              <span className="text-2xl font-black tracking-tighter" aria-hidden="true">
+                Go<span className="text-primary">Mach</span>
+              </span>
+            </button>
 
-          <button
-            className="lg:hidden text-foreground"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
-        </div>
+            <div className="hidden lg:flex items-center space-x-8" role="menubar">
+              {["About", "Services", "Process", "Locations", "Tyres", "FAQ", "Contact"].map(
+                (item) => (
+                  <button
+                    key={item}
+                    role="menuitem"
+                    onClick={() => scrollTo(item.toLowerCase())}
+                    aria-label={`Navigate to ${item} section`}
+                    data-testid={`link-nav-${item.toLowerCase()}`}
+                    className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                  >
+                    {item}
+                  </button>
+                )
+              )}
+              <Button
+                onClick={() => scrollTo("contact")}
+                aria-label="Get a quote from GoMach"
+                data-testid="button-get-quote-nav"
+                className="bg-primary hover:bg-primary/90 text-white font-bold rounded-full px-6"
+              >
+                Get a Quote
+              </Button>
+            </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-background border-b border-border shadow-lg py-4 px-4 flex flex-col space-y-4">
-            {["About", "Services", "Process", "Locations", "Tyres", "FAQ", "Contact"].map(
-              (item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollTo(item.toLowerCase())}
-                  className="text-left text-lg font-medium text-foreground/90 hover:text-primary"
-                >
-                  {item}
-                </button>
-              )
-            )}
-            <Button
-              onClick={() => scrollTo("contact")}
-              className="bg-primary text-white w-full font-bold"
+            <button
+              className="lg:hidden text-foreground"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+              data-testid="button-mobile-menu-toggle"
             >
-              Get a Quote
-            </Button>
+              {mobileMenuOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
+            </button>
           </div>
-        )}
-      </nav>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div
+              id="mobile-menu"
+              role="menu"
+              className="lg:hidden absolute top-full left-0 right-0 bg-background border-b border-border shadow-lg py-4 px-4 flex flex-col space-y-4"
+            >
+              {["About", "Services", "Process", "Locations", "Tyres", "FAQ", "Contact"].map(
+                (item) => (
+                  <button
+                    key={item}
+                    role="menuitem"
+                    onClick={() => scrollTo(item.toLowerCase())}
+                    data-testid={`link-mobile-nav-${item.toLowerCase()}`}
+                    className="text-left text-lg font-medium text-foreground/90 hover:text-primary"
+                  >
+                    {item}
+                  </button>
+                )
+              )}
+              <Button
+                onClick={() => scrollTo("contact")}
+                data-testid="button-get-quote-mobile"
+                className="bg-primary text-white w-full font-bold"
+              >
+                Get a Quote
+              </Button>
+            </div>
+          )}
+        </nav>
+      </header>
+
+      {/* ========== MAIN CONTENT ========== */}
+      <main id="main-content" itemProp="mainContentOfPage">
 
       {/* Hero Section */}
       <section
         id="hero"
+        aria-label="Hero — Delivering logistics excellence across Europe and the UK"
         className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-20"
       >
         <motion.div style={{ y }} className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-background/80 z-10" />
           <img
             src="/hero-bg.png"
-            alt="Hero Background"
+            alt="Aerial view of European highways at night with light trails from freight trucks — representing GoMach cross-border logistics across the UK and Europe"
             className="w-full h-full object-cover object-center"
+            loading="eager"
+            fetchPriority="high"
+            width="1920"
+            height="1080"
           />
         </motion.div>
 
@@ -269,7 +298,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24 bg-card">
+      <section id="about" aria-label="About GoMach" className="py-24 bg-card" itemScope itemType="https://schema.org/AboutPage">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -310,8 +339,11 @@ export default function Home() {
               <div className="aspect-square bg-muted rounded-2xl overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700">
                 <img
                   src="https://images.unsplash.com/photo-1586528116311-ad8ed745140c?q=80&w=2070&auto=format&fit=crop"
-                  alt="Logistics Warehouse"
+                  alt="GoMach logistics warehouse interior — pallets and freight being organised for cross-border shipping across UK and Europe"
                   className="object-cover w-full h-full"
+                  loading="lazy"
+                  width="800"
+                  height="800"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
               </div>
@@ -325,12 +357,14 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-10">
+      <section id="services" aria-label="GoMach services — freight logistics, tyres, warehousing and more" className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-10" aria-hidden="true">
            <img
             src="/services-bg.png"
-            alt="Services Background"
+            alt=""
+            role="presentation"
             className="w-full h-full object-cover"
+            loading="lazy"
           />
         </div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -408,7 +442,7 @@ export default function Home() {
       </section>
 
       {/* Process Section */}
-      <section id="process" className="py-24 bg-card">
+      <section id="process" aria-label="GoMach 6-step delivery process" className="py-24 bg-card">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial="hidden"
@@ -461,7 +495,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 border-y border-border">
+      <section id="why-us" aria-label="Why choose GoMach logistics" className="py-24 border-y border-border">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -490,7 +524,7 @@ export default function Home() {
       </section>
 
       {/* Locations Section */}
-      <section id="locations" className="py-24 bg-card">
+      <section id="locations" aria-label="GoMach locations across Europe — Nottingham, Cork, Frankfurt, Helsinki" className="py-24 bg-card">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial="hidden"
@@ -540,10 +574,13 @@ export default function Home() {
                 className="bg-background border border-border rounded-xl overflow-hidden group"
               >
                 <div className="h-48 w-full bg-muted relative">
-                  <iframe 
-                    src={loc.mapSrc} 
+                  <iframe
+                    src={loc.mapSrc}
                     className="w-full h-full border-0 grayscale group-hover:grayscale-0 transition-all duration-500"
-                    title={`Map of ${loc.city}`}
+                    title={`OpenStreetMap showing GoMach location in ${loc.city}`}
+                    aria-label={`Interactive map of ${loc.city}`}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
                   />
                   <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]"></div>
                 </div>
@@ -561,7 +598,7 @@ export default function Home() {
       </section>
 
       {/* Tyres Section */}
-      <section id="tyres" className="py-24 relative">
+      <section id="tyres" aria-label="GoMach premium tyre solutions for cars and trucks" className="py-24 relative">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -573,8 +610,11 @@ export default function Home() {
               <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-card border border-border">
                 <img
                   src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=2064&auto=format&fit=crop"
-                  alt="Premium Tyres"
+                  alt="Premium car and truck tyres from GoMach — wide range of sizes for commercial fleets and personal vehicles across UK and Europe"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  loading="lazy"
+                  width="800"
+                  height="600"
                 />
               </div>
             </motion.div>
@@ -617,7 +657,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-24 bg-card border-y border-border overflow-hidden">
+      <section id="testimonials" aria-label="Client testimonials and reviews" className="py-24 bg-card border-y border-border overflow-hidden">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial="hidden"
@@ -677,7 +717,7 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-24">
+      <section id="faq" aria-label="Frequently asked questions about GoMach logistics and tyres" className="py-24">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl">
           <motion.div
             initial="hidden"
@@ -740,7 +780,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 bg-card">
+      <section id="contact" aria-label="Contact GoMach" className="py-24 bg-card" itemScope itemType="https://schema.org/ContactPage">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid lg:grid-cols-2 gap-16">
             <motion.div
@@ -759,9 +799,21 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-lg mb-2">Direct Lines</h4>
-                    <p className="text-muted-foreground mb-1">🇬🇧 +44 7350 329728 (Nottingham)</p>
-                    <p className="text-muted-foreground mb-1">🇮🇪 +49 15216973633 (Cork)</p>
-                    <p className="text-muted-foreground">🇫🇮 +358 469513941 (Helsinki)</p>
+                    <p className="text-muted-foreground mb-1">
+                      <span aria-hidden="true">🇬🇧</span>{" "}
+                      <a href="tel:+447350329728" className="hover:text-primary transition-colors" data-testid="link-phone-uk" aria-label="Call GoMach UK office">+44 7350 329728</a>
+                      <span className="text-xs text-muted-foreground/60 ml-1">(Nottingham)</span>
+                    </p>
+                    <p className="text-muted-foreground mb-1">
+                      <span aria-hidden="true">🇮🇪</span>{" "}
+                      <a href="tel:+4915216973633" className="hover:text-primary transition-colors" data-testid="link-phone-ie" aria-label="Call GoMach Ireland/Germany office">+49 15216973633</a>
+                      <span className="text-xs text-muted-foreground/60 ml-1">(Cork)</span>
+                    </p>
+                    <p className="text-muted-foreground">
+                      <span aria-hidden="true">🇫🇮</span>{" "}
+                      <a href="tel:+358469513941" className="hover:text-primary transition-colors" data-testid="link-phone-fi" aria-label="Call GoMach Finland office">+358 469513941</a>
+                      <span className="text-xs text-muted-foreground/60 ml-1">(Helsinki)</span>
+                    </p>
                   </div>
                 </div>
                 
@@ -771,20 +823,66 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-lg mb-2">Email</h4>
-                    <p className="text-muted-foreground">info@gomach.uk</p>
+                    <a
+                      href="mailto:info@gomach.uk"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                      data-testid="link-email"
+                      aria-label="Send email to GoMach at info@gomach.uk"
+                      itemProp="email"
+                    >info@gomach.uk</a>
                   </div>
                 </div>
               </motion.div>
 
-              <motion.form variants={fadeUp} className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+              <motion.form
+                variants={fadeUp}
+                className="space-y-4"
+                onSubmit={(e) => e.preventDefault()}
+                aria-label="Contact GoMach enquiry form"
+                noValidate
+              >
                 <div className="grid grid-cols-2 gap-4">
-                  <Input placeholder="First Name" className="bg-background border-border h-12" />
-                  <Input placeholder="Last Name" className="bg-background border-border h-12" />
+                  <Input
+                    placeholder="First Name"
+                    className="bg-background border-border h-12"
+                    data-testid="input-first-name"
+                    aria-label="First name"
+                    autoComplete="given-name"
+                  />
+                  <Input
+                    placeholder="Last Name"
+                    className="bg-background border-border h-12"
+                    data-testid="input-last-name"
+                    aria-label="Last name"
+                    autoComplete="family-name"
+                  />
                 </div>
-                <Input placeholder="Email Address" type="email" className="bg-background border-border h-12" />
-                <Input placeholder="Subject" className="bg-background border-border h-12" />
-                <Textarea placeholder="Your Message" className="bg-background border-border min-h-[120px] resize-none" />
-                <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 rounded-none">
+                <Input
+                  placeholder="Email Address"
+                  type="email"
+                  className="bg-background border-border h-12"
+                  data-testid="input-email"
+                  aria-label="Email address"
+                  autoComplete="email"
+                />
+                <Input
+                  placeholder="Subject"
+                  className="bg-background border-border h-12"
+                  data-testid="input-subject"
+                  aria-label="Message subject"
+                />
+                <Textarea
+                  placeholder="Your Message"
+                  className="bg-background border-border min-h-[120px] resize-none"
+                  data-testid="input-message"
+                  aria-label="Your message to GoMach"
+                />
+                <Button
+                  className="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 rounded-none"
+                  data-testid="button-send-message"
+                  type="submit"
+                  aria-label="Send message to GoMach"
+                >
                   Send Message
                 </Button>
               </motion.form>
@@ -797,54 +895,98 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="h-full min-h-[400px] rounded-xl overflow-hidden border border-border"
             >
-              <iframe 
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-1.2357%2C52.9336%2C-1.1007%2C53.0001&layer=mapnik" 
+              <iframe
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-1.2357%2C52.9336%2C-1.1007%2C53.0001&layer=mapnik"
                 className="w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500"
-                title="Nottingham HQ Map"
+                title="OpenStreetMap — GoMach headquarters in Nottingham, United Kingdom"
+                aria-label="Interactive map showing GoMach Nottingham headquarters location"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               />
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-background border-t border-border py-12">
+      </main>{/* end #main-content */}
+
+      {/* ========== FOOTER ========== */}
+      <footer
+        className="bg-background border-t border-border py-12"
+        itemScope
+        itemType="https://schema.org/WPFooter"
+        aria-label="GoMach site footer"
+      >
         <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col items-center md:items-start gap-4">
-            <span className="text-2xl font-black tracking-tighter">
-              Go<span className="text-primary">Mach</span>
-            </span>
-            <p className="text-muted-foreground text-sm text-center md:text-left max-w-xs">
-              Premium cross-border freight and tire solutions. Moving goods seamlessly across borders.
+          <div className="flex flex-col items-center md:items-start gap-4" itemScope itemType="https://schema.org/Organization">
+            <button
+              onClick={() => scrollTo("hero")}
+              aria-label="GoMach — Back to top"
+              data-testid="link-footer-logo"
+            >
+              <span className="text-2xl font-black tracking-tighter" itemProp="name" aria-hidden="true">
+                Go<span className="text-primary">Mach</span>
+              </span>
+            </button>
+            <p className="text-muted-foreground text-sm text-center md:text-left max-w-xs" itemProp="description">
+              GoMach is your trusted logistics and tyre solution partner with over 22 years of experience. Delivering reliability across the UK and Europe.
             </p>
+            <address className="not-italic text-xs text-muted-foreground/70 text-center md:text-left" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+              <span itemProp="addressLocality">Nottingham</span>,{" "}
+              <span itemProp="addressCountry">United Kingdom</span>
+              {" "}·{" "}
+              <a href="mailto:info@gomach.uk" itemProp="email" className="hover:text-primary transition-colors">info@gomach.uk</a>
+            </address>
           </div>
-          
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-            <button onClick={() => scrollTo("about")} className="hover:text-primary transition-colors">About</button>
-            <button onClick={() => scrollTo("services")} className="hover:text-primary transition-colors">Services</button>
-            <button onClick={() => scrollTo("process")} className="hover:text-primary transition-colors">Process</button>
-            <button onClick={() => scrollTo("contact")} className="hover:text-primary transition-colors">Contact</button>
-          </div>
+
+          <nav aria-label="Footer navigation">
+            <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+              {[
+                { label: "About", id: "about" },
+                { label: "Services", id: "services" },
+                { label: "Process", id: "process" },
+                { label: "Locations", id: "locations" },
+                { label: "Tyres", id: "tyres" },
+                { label: "FAQ", id: "faq" },
+                { label: "Contact", id: "contact" },
+              ].map(({ label, id }) => (
+                <button
+                  key={id}
+                  onClick={() => scrollTo(id)}
+                  data-testid={`link-footer-${id}`}
+                  aria-label={`Navigate to ${label} section`}
+                  className="hover:text-primary transition-colors"
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </nav>
         </div>
-        
+
         <div className="container mx-auto px-4 md:px-6 mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between text-xs text-muted-foreground gap-4">
-          <p>© 2025 GoMach. All rights reserved.</p>
+          <p>
+            <span aria-label="Copyright">©</span> 2025 GoMach. All rights reserved. Delivering logistics excellence across Europe and the UK.
+          </p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-primary transition-colors" data-testid="link-privacy-policy">Privacy Policy</a>
+            <a href="#" className="hover:text-primary transition-colors" data-testid="link-terms">Terms of Service</a>
           </div>
         </div>
       </footer>
 
-      {/* WhatsApp Floating Button */}
+      {/* ========== WHATSAPP FLOATING BUTTON ========== */}
       <a
         href="https://wa.me/447350329728"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Chat with GoMach on WhatsApp — +44 7350 329728"
+        data-testid="button-whatsapp"
+        title="Chat on WhatsApp"
         className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-16 h-16 bg-[#25D366] text-white rounded-full shadow-2xl hover:scale-110 transition-transform duration-300"
       >
-        <div className="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-50"></div>
-        <MessageSquare className="w-8 h-8 relative z-10" />
+        <div className="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-50" aria-hidden="true"></div>
+        <MessageSquare className="w-8 h-8 relative z-10" aria-hidden="true" />
       </a>
     </div>
   );

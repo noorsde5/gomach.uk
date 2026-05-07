@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xsi:schemaLocation="
+    http://www.sitemaps.org/schemas/sitemap/0.9
+    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+    http://www.google.com/schemas/sitemap-image/1.1
+    http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+
+  <!-- ==================== HOME PAGE ==================== -->
+  <url>
+    <loc>https://gomach.uk/</loc>
+    <lastmod>2025-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://gomach.uk/opengraph.jpg</image:loc>
+      <image:title>GoMach — Delivering logistics excellence across Europe &amp; the UK</image:title>
+      <image:caption>Aerial view of European highways at night — GoMach cross-border freight and tyre solutions</image:caption>
+      <image:geo_location>Nottingham, United Kingdom</image:geo_location>
+      <image:license>https://gomach.uk/</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://gomach.uk/hero-bg.png</image:loc>
+      <image:title>GoMach Hero — Cross-border freight logistics highways</image:title>
+      <image:caption>Cinematic highway shot representing GoMach's pan-European logistics network</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://gomach.uk/services-bg.png</image:loc>
+      <image:title>GoMach Services — Freight, Tyres, Warehousing &amp; More</image:title>
+      <image:caption>GoMach services background — freight logistics, tyre solutions, warehousing</image:caption>
+    </image:image>
+  </url>
+
+</urlset>

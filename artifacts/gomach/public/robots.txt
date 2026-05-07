@@ -1,0 +1,43 @@
+# ============================================================
+# robots.txt — GoMach (https://gomach.uk)
+# ============================================================
+
+User-agent: *
+Allow: /
+
+# Block access to any build artefacts
+Disallow: /dist/
+Disallow: /*.map$
+Disallow: /node_modules/
+
+# Crawl-delay for polite bots
+Crawl-delay: 10
+
+# Sitemap
+Sitemap: https://gomach.uk/sitemap.xml
+Sitemap: https://gomach.uk/sitemap-images.xml
+
+# ---- Individual bot rules ----
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 5
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /

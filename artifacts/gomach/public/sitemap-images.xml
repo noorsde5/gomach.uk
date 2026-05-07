@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://gomach.uk/</loc>
+    <image:image>
+      <image:loc>https://gomach.uk/hero-bg.png</image:loc>
+      <image:title>GoMach logistics — European highway network at night</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://gomach.uk/opengraph.jpg</image:loc>
+      <image:title>GoMach — Trusted freight logistics and tyre solutions UK &amp; Europe</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://gomach.uk/services-bg.png</image:loc>
+      <image:title>GoMach services — freight forwarding, tyre sales, warehousing</image:title>
+    </image:image>
+  </url>
+</urlset>
