@@ -39,7 +39,7 @@ const tyres: Tyre[] = [
     shortDesc: "Fuel-efficient summer tyre designed for long-lasting performance.",
     longDesc:
       "The Continental EcoContact 6 offers advanced fuel efficiency and precision handling. Its unique rubber compound ensures extended tread life and excellent grip on dry and wet roads. Ideal for compact and mid-sized vehicles.",
-    image: "/tyre-continental-ecocontact6.png",
+    image: `${import.meta.env.BASE_URL}tyre-continental-ecocontact6.png`,
     category: "summer",
     tags: ["Fuel Efficient", "Low Noise", "Long Life"],
     rating: 4.7,
@@ -68,7 +68,7 @@ const tyres: Tyre[] = [
     shortDesc: "High-performance tyre for sports cars and sedans.",
     longDesc:
       "The Michelin Pilot Sport 4 delivers outstanding steering precision and control at high speeds. It adapts continuously to the road for optimum grip and enhanced braking, especially in wet conditions. Perfect for sporty drivers who demand performance and safety.",
-    image: "/tyre-michelin-pilotsp4.png",
+    image: `${import.meta.env.BASE_URL}tyre-michelin-pilotsp4.png`,
     category: "summer",
     tags: ["High Performance", "Wet Grip", "Sports"],
     rating: 4.9,
@@ -98,7 +98,7 @@ const tyres: Tyre[] = [
     shortDesc: "Versatile tyre for SUVs offering eco-friendliness and performance.",
     longDesc:
       "Designed for modern SUVs, the Scorpion Verde All Season combines comfort, fuel efficiency, and reduced road noise. It's ideal for year-round driving without compromising on safety or handling on wet or dry surfaces.",
-    image: "/tyre-pirelli-scorpion.png",
+    image: `${import.meta.env.BASE_URL}tyre-pirelli-scorpion.png`,
     category: "all-season",
     tags: ["All Season", "SUV", "Eco Friendly"],
     rating: 4.6,
@@ -127,7 +127,7 @@ const tyres: Tyre[] = [
     shortDesc: "Reliable winter tyre with enhanced snow traction.",
     longDesc:
       "The Goodyear UltraGrip Performance+ features improved braking distance and grip in icy and snowy conditions. It uses advanced tread technology to provide confidence and safety in extreme winter weather. Recommended for cold climates and seasonal changes.",
-    image: "/tyre-goodyear-ultragrip.png",
+    image: `${import.meta.env.BASE_URL}tyre-goodyear-ultragrip.png`,
     category: "winter",
     tags: ["Winter", "Snow Grip", "Ice Braking"],
     rating: 4.8,
@@ -156,7 +156,7 @@ const tyres: Tyre[] = [
     shortDesc: "Premium touring tyre delivering comfort and confident wet braking.",
     longDesc:
       "The Bridgestone Turanza T005 is engineered for drivers who value a smooth, quiet ride without compromising on safety. Its Enliten technology reduces rolling resistance while the Advanced Tread Compound provides exceptional wet braking performance. Ideal for touring and everyday driving across European roads.",
-    image: "/tyre-bridgestone-turanza.png",
+    image: `${import.meta.env.BASE_URL}tyre-bridgestone-turanza.png`,
     category: "summer",
     tags: ["Touring", "Quiet Ride", "Wet Braking"],
     rating: 4.6,
@@ -185,7 +185,7 @@ const tyres: Tyre[] = [
     shortDesc: "Sporty summer tyre with excellent wet handling and low rolling resistance.",
     longDesc:
       "The Dunlop Sport BluResponse combines sporty performance with eco-conscious engineering. Its Multi-Radius Profile ensures even contact with the road for predictable handling, while the advanced tread compound delivers reliable stopping power in wet conditions. Great value for performance-focused drivers.",
-    image: "/tyre-dunlop-bluresponse.png",
+    image: `${import.meta.env.BASE_URL}tyre-dunlop-bluresponse.png`,
     category: "summer",
     tags: ["Budget Friendly", "Sporty", "Eco"],
     rating: 4.4,
@@ -214,7 +214,7 @@ const tyres: Tyre[] = [
     shortDesc: "World-class studded winter tyre built for extreme Nordic conditions.",
     longDesc:
       "The Nokian Hakkapeliitta 10 is the pinnacle of winter tyre engineering, developed and tested in Finland's harshest conditions. Its grip studs provide unmatched traction on black ice and hard-packed snow. The eco-friendly rubber compound maintains flexibility in temperatures as low as -40°C, making it the top choice for drivers in Finland, Scandinavia, and northern Europe.",
-    image: "/tyre-nokian-hakka.png",
+    image: `${import.meta.env.BASE_URL}tyre-nokian-hakka.png`,
     category: "winter",
     tags: ["Studded", "Nordic", "Extreme Winter"],
     rating: 5.0,
@@ -243,7 +243,7 @@ const tyres: Tyre[] = [
     shortDesc: "Eco-friendly summer tyre with low rolling resistance and reliable grip.",
     longDesc:
       "The Yokohama BluEarth-ES ES32 is designed for environmentally conscious drivers seeking fuel savings without sacrificing safety. Its silica-rich compound provides excellent grip on wet surfaces and reduces CO2 emissions. A smart choice for compact cars and city driving across the UK and Europe.",
-    image: "/tyre-yokohama-bluearth.png",
+    image: `${import.meta.env.BASE_URL}tyre-yokohama-bluearth.png`,
     category: "summer",
     tags: ["Eco", "City Driving", "Low Emissions"],
     rating: 4.3,
