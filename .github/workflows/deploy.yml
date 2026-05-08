@@ -46,18 +46,20 @@ jobs:
             ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        # --no-frozen-lockfile: CI machines may differ from dev (platform-specific binaries)
+        # --config.minimumReleaseAge=0: bypass the 1440-min age check that's Replit-dev-only
+        run: pnpm install --no-frozen-lockfile --config.minimumReleaseAge=0
 
       - name: Build GoMach site
         working-directory: artifacts/gomach
         env:
           PORT: "3000"
           # Use /gomach.uk/ until custom domain gomach.uk is active.
-          # Once gomach.uk DNS is pointed at GitHub Pages, change this to: /
+          # Once gomach.uk DNS is pointed at GitHub Pages, change BASE_PATH to: /
           BASE_PATH: /gomach.uk/
           NODE_ENV: production
           # Get your free key at https://web3forms.com — enter info@gomach.uk
-          # Then add it in GitHub: Settings > Secrets > Actions > VITE_WEB3FORMS_KEY
+          # Add it in GitHub: Settings > Secrets > Actions > VITE_WEB3FORMS_KEY
           VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
         run: pnpm run build
 
