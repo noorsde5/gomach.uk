@@ -407,7 +407,7 @@ export default function Home() {
             >
               <div className="aspect-square bg-muted rounded-2xl overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700">
                 <img
-                  src="/warehouse.png"
+                  src={`${import.meta.env.BASE_URL}warehouse.png`}
                   alt="GoMach logistics warehouse interior — rows of stacked pallets and freight boxes organised for cross-border shipping across UK and Europe"
                   className="object-cover w-full h-full"
                   loading="lazy"
@@ -596,7 +596,7 @@ export default function Home() {
       {/* Port / Operations Visual Banner */}
       <div className="relative h-64 overflow-hidden" aria-hidden="true">
         <img
-          src="/port.png"
+          src={`${import.meta.env.BASE_URL}port.png`}
           alt="Aerial view of European cargo port with shipping containers — GoMach cross-border freight operations across UK and Europe"
           className="w-full h-full object-cover opacity-40"
           loading="lazy"
@@ -700,7 +700,7 @@ export default function Home() {
             >
               <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-card border border-border">
                 <img
-                  src="/truck.png"
+                  src={`${import.meta.env.BASE_URL}truck.png`}
                   alt="GoMach freight truck on European highway — reliable cross-border transport connecting UK, Ireland, Germany and Finland"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                   loading="lazy"
@@ -785,7 +785,7 @@ export default function Home() {
               className="rounded-2xl overflow-hidden border border-border"
             >
               <img
-                src="/team.png"
+                src={`${import.meta.env.BASE_URL}team.png`}
                 alt="GoMach logistics team — experienced freight and tyre specialists dedicated to cross-border shipping excellence across UK and Europe"
                 className="w-full h-full object-cover"
                 loading="lazy"
