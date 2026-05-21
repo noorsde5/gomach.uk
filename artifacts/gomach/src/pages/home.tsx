@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -169,14 +170,14 @@ export default function Home() {
                   </button>
                 )
               )}
-              <a
+              <Link
                 href="/catalogue"
                 className="text-sm font-medium text-primary border border-primary/40 hover:bg-primary/10 transition-colors px-4 py-1.5 rounded-full"
                 aria-label="View tyre catalogue"
                 data-testid="link-nav-catalogue"
               >
                 Catalogue
-              </a>
+              </Link>
               <Button
                 onClick={() => scrollTo("contact")}
                 aria-label="Get a quote from GoMach"
@@ -219,13 +220,13 @@ export default function Home() {
                   </button>
                 )
               )}
-              <a
+              <Link
                 href="/catalogue"
                 className="text-left text-lg font-medium text-primary"
                 data-testid="link-mobile-nav-catalogue"
               >
                 Tyre Catalogue →
-              </a>
+              </Link>
               <Button
                 onClick={() => scrollTo("contact")}
                 data-testid="button-get-quote-mobile"
@@ -739,14 +740,14 @@ export default function Home() {
                 ))}
               </div>
               <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-                <a
+                <Link
                   href="/catalogue"
                   className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold h-14 px-8 rounded-none text-base transition-colors"
                   aria-label="View full tyre catalogue"
                   data-testid="button-view-catalogue"
                 >
                   View Tyre Catalogue →
-                </a>
+                </Link>
               </motion.div>
             </motion.div>
           </div>
