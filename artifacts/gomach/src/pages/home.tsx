@@ -1145,7 +1145,7 @@ export default function Home() {
 
         <div className="container mx-auto px-4 md:px-6 mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between text-xs text-muted-foreground gap-4">
           <p>
-            <span aria-label="Copyright">©</span> 2025 GoMach. All rights reserved. Delivering logistics excellence across Europe and the UK.
+            <span aria-label="Copyright">©</span> {new Date().getFullYear()} GoMach. All rights reserved. Delivering logistics excellence across Europe and the UK.
           </p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-primary transition-colors" data-testid="link-privacy-policy">Privacy Policy</a>

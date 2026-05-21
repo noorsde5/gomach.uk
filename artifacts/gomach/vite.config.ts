@@ -25,34 +25,19 @@ if (!basePath) {
   );
 }
 
-const isReplit = process.env.REPL_ID !== undefined;
-const isDev = process.env.NODE_ENV !== "production";
+const currentYear = new Date().getFullYear();
 
 export default defineConfig({
   base: basePath,
   plugins: [
     react(),
     tailwindcss(),
-    // Replit-only plugins — skipped in CI / production builds
-    ...(isReplit
-      ? [
-          await import("@replit/vite-plugin-runtime-error-modal").then((m) =>
-            m.default()
-          ),
-          ...(isDev
-            ? [
-                await import("@replit/vite-plugin-cartographer").then((m) =>
-                  m.cartographer({
-                    root: path.resolve(import.meta.dirname, ".."),
-                  })
-                ),
-                await import("@replit/vite-plugin-dev-banner").then((m) =>
-                  m.devBanner()
-                ),
-              ]
-            : []),
-        ]
-      : []),
+    {
+      name: "inject-copyright-year",
+      transformIndexHtml(html) {
+        return html.replaceAll("%CURRENT_YEAR%", String(currentYear));
+      },
+    },
   ],
   resolve: {
     alias: {

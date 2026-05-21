@@ -841,7 +841,7 @@ export default function Catalogue() {
 
       {/* Footer */}
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        <p>© 2025 GoMach. All prices shown are per tyre, excluding fitting and VAT. Subject to availability.</p>
+        <p>© {new Date().getFullYear()} GoMach. All prices shown are per tyre, excluding fitting and VAT. Subject to availability.</p>
         <Link href="/" className="text-primary hover:underline mt-2 inline-block">
           ← Return to GoMach Home
         </Link>
