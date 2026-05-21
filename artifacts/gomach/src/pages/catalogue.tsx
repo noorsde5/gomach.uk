@@ -309,7 +309,6 @@ function TyreCard({ tyre, onClick }: { tyre: Tyre; onClick: () => void }) {
   return (
     <motion.article
       variants={fadeUp}
-      layout
       className="bg-card border border-border rounded-2xl overflow-hidden group hover:border-primary/60 transition-colors duration-300 flex flex-col cursor-pointer"
       onClick={onClick}
       itemScope
@@ -801,7 +800,6 @@ export default function Catalogue() {
         </p>
 
         <motion.div
-          layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           initial="hidden"
           animate="visible"
