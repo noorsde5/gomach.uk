@@ -4,10 +4,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
+import SiteBlocked from "@/pages/site-blocked";
 import Home from "@/pages/home";
 import Catalogue from "@/pages/catalogue";
 
 const queryClient = new QueryClient();
+const siteAccessEnabled = import.meta.env.VITE_SITE_ACCESS !== "no";
 
 /** Reset scroll when changing routes (e.g. home → catalogue). */
 function ScrollToTop() {
@@ -29,6 +31,10 @@ function Router() {
 }
 
 function App() {
+  if (!siteAccessEnabled) {
+    return <SiteBlocked />;
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

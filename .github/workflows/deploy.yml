@@ -5,6 +5,9 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    # Re-check monthly access at the start of each month (00:05 UTC)
+    - cron: "5 0 1 * *"
 
 permissions:
   contents: read
@@ -31,17 +34,34 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Check monthly site access
+        id: access
+        run: |
+          node scripts/site-access.mjs status >> "$GITHUB_OUTPUT"
+          if node scripts/site-access.mjs check; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build blocked site (unpaid month)
+        if: steps.access.outputs.enabled != 'true'
+        run: node scripts/build-blocked-site.mjs
+
       - name: Setup pnpm
+        if: steps.access.outputs.enabled == 'true'
         uses: pnpm/action-setup@v4
         with:
           version: 10
 
       - name: Get pnpm store directory
+        if: steps.access.outputs.enabled == 'true'
         id: pnpm-cache
         shell: bash
         run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Cache pnpm dependencies
+        if: steps.access.outputs.enabled == 'true'
         uses: actions/cache@v4
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
@@ -50,11 +70,13 @@ jobs:
             ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
+        if: steps.access.outputs.enabled == 'true'
         # --no-frozen-lockfile: CI machines may differ from dev (platform-specific binaries)
         # --config.minimumReleaseAge=0: bypass the 1440-min age check that's Replit-dev-only
         run: pnpm install --no-frozen-lockfile --config.minimumReleaseAge=0
 
       - name: Build GoMach site
+        if: steps.access.outputs.enabled == 'true'
         working-directory: artifacts/gomach
         env:
           PORT: "3000"
@@ -62,6 +84,7 @@ jobs:
           # is served from a project URL like https://<user>.github.io/<repo>/.
           BASE_PATH: "/"
           NODE_ENV: production
+          VITE_SITE_ACCESS: "yes"
           # Get your free key at https://web3forms.com — enter info@gomach.uk
           # Add it in GitHub: Settings > Secrets > Actions > VITE_WEB3FORMS_KEY
           VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}

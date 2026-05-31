@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
+import { isSiteAccessEnabled } from "../../scripts/site-access.mjs";
 
 const rawPort = process.env.PORT;
 
@@ -26,9 +27,15 @@ if (!basePath) {
 }
 
 const currentYear = new Date().getFullYear();
+const siteAccess =
+  process.env.VITE_SITE_ACCESS ??
+  (isSiteAccessEnabled() ? "yes" : "no");
 
 export default defineConfig({
   base: basePath,
+  define: {
+    "import.meta.env.VITE_SITE_ACCESS": JSON.stringify(siteAccess),
+  },
   plugins: [
     react(),
     tailwindcss(),
