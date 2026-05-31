@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
-import { isSiteAccessEnabled } from "../../scripts/site-access.mjs";
+import { isSiteAccessEnabled } from "../../scripts/site-access-lib.mjs";
 
 const rawPort = process.env.PORT;
 

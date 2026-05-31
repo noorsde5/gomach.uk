@@ -1,5 +1,4 @@
 {
-  "_readme": "Set each YYYY-MM to yes (site live) or no (404 — site does not exist). Missing months default to no. Uses Europe/London for the current month. Edit and push to main to redeploy.",
   "2026-01": "no",
   "2026-02": "no",
   "2026-03": "no",

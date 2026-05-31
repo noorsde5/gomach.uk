@@ -1,7 +1,7 @@
 import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { currentMonthKey } from "./site-access.mjs";
+import { currentMonthKey } from "./site-access-lib.mjs";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const outDir = path.join(rootDir, "artifacts/gomach/dist/public");
